@@ -5806,14 +5806,18 @@ int ANT_CALL TwKeyTest(int _Key, int _Modifiers)
 
 namespace AntTweakBar {
 
-struct StructCompare : public binary_function<TwType, TwType, bool>
+struct StructCompare
 {
+	typedef TwType first_argument_type;
+	typedef TwType second_argument_type;
+	typedef bool result_type;
+
 	bool operator()(const TwType& _Left, const TwType& _Right) const
 	{
-		assert( g_TwMgr!=NULL );
-		int i0 = _Left-TW_TYPE_STRUCT_BASE;
-		int i1 = _Right-TW_TYPE_STRUCT_BASE;
-		if( i0>=0 && i0<(int)g_TwMgr->m_Structs.size() && i1>=0 && i1<(int)g_TwMgr->m_Structs.size() )
+		assert(g_TwMgr != NULL);
+		int i0 = _Left - TW_TYPE_STRUCT_BASE;
+		int i1 = _Right - TW_TYPE_STRUCT_BASE;
+		if (i0 >= 0 && i0 < (int)g_TwMgr->m_Structs.size() && i1 >= 0 && i1 < (int)g_TwMgr->m_Structs.size())
 			return g_TwMgr->m_Structs[i0].m_Name < g_TwMgr->m_Structs[i1].m_Name;
 		else
 			return false;
